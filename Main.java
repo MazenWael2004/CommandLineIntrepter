@@ -19,7 +19,7 @@ public class Main {
         if(command.toLowerCase().equals("ls")){
             cli.ls(currentdirectory);
         }
-        else if(command.toLowerCase().equals("ls-a")){
+        else if(command.toLowerCase().equals("ls -a")){
             cli.lsA(currentdirectory);
         }
 
