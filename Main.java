@@ -6,6 +6,7 @@ public class Main {
 
         System.out.println("  Welcome to our CLI ");
         Scanner scanner = new Scanner(System.in);
+        Scanner scanner2 = new Scanner(System.in);
         boolean flag = true;
         String currentdirectory = System.getProperty("user.dir");
 
@@ -22,6 +23,15 @@ public class Main {
         else if(command.toLowerCase().equals("ls -a")){
             cli.lsA(currentdirectory);
         }
+        else if(command.toLowerCase().equals("ls -r")){
+            cli.lsR(currentdirectory);
+        }
+
+        else if(command.toLowerCase().equals("cat")){
+            String filename = scanner.nextLine();
+            cli.cat(filename);
+            
+        }
 
         else if(command.toLowerCase().equals("exit") ){
             flag = false;
@@ -31,6 +41,7 @@ public class Main {
     }
     System.out.println("Thank you!");
     scanner.close(); 
+    scanner2.close();
 }
 
 }
