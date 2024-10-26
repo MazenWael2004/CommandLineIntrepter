@@ -16,8 +16,11 @@ public class Main {
         String command = scanner.nextLine(); 
         
         System.out.println("You entered: " + command); 
-        if(command.startsWith("ls")){
+        if(command.toLowerCase().equals("ls")){
             cli.ls(currentdirectory);
+        }
+        else if(command.toLowerCase().equals("ls-a")){
+            cli.lsA(currentdirectory);
         }
 
         else if(command.toLowerCase().equals("exit") ){
