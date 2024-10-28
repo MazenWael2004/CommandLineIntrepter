@@ -74,7 +74,7 @@ public class CLITesting {
     // List items testing...
     
     @Test
-    public void lsTest(){
+    public void ls(){
         String testDirectory =  System.getProperty("user.dir");
         File directory = new File(testDirectory);
         String files[] = directory.list();
@@ -86,15 +86,15 @@ public class CLITesting {
     }
 
     @Test
-<<<<<<< HEAD
     public void testAppendRedirection() throws IOException {
         // Test appending content to a file
         CLI.redirectOutput("output.txt", "First Line\n");
         CLI.appendOutput("output.txt", "Second Line\n");
         String content = Files.readString(Paths.get("output.txt"), StandardCharsets.UTF_8);
         assertEquals("First Line\nSecond Line\n", content);
-=======
-    public void lsA(){
+    }
+     @Test
+      public void lsA(){
         String testDirectory =  System.getProperty("user.dir");
         File directory = new File(testDirectory);
         File files[] = directory.listFiles();
@@ -102,6 +102,18 @@ public class CLITesting {
         CommandLineIntrepter.lsA(testDirectory);
         assertEquals(files.length ,directory.listFiles().length);
         
+
+    }
+
+    @Test
+    public void lsTest(){
+        String testDirectory =  System.getProperty("user.dir");
+        File directory = new File(testDirectory);
+        String files[] = directory.list();
+
+        assertNotNull("Directory cannot be null", directory);
+        CommandLineIntrepter.ls(testDirectory);
+        assertEquals(files.length ,directory.list().length);
 
     }
 
@@ -128,9 +140,13 @@ public class CLITesting {
 
 
 
->>>>>>> 78678aeebc267bf423720aea1db7d40a057a403b
     }
 }
+
+
+
+
+
 
 
 
