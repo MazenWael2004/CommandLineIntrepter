@@ -43,18 +43,7 @@ public class CLI {
 
         }
 
-        cli.pwd();
-        System.out.print("current direcotry: ");
-        cli.pwd();
-        System.out.println();
-        cli.cd("C:\\Users\\amrel\\OneDrive\\Documents\\Birth of a bee");
-        System.out.print("new direcotry: ");
-        cli.pwd();
-        System.out.println();
-        cli.cd("\\Mind");
-        System.out.print("newest direcotry: ");
-        cli.pwd();
-        System.out.println();
+        
     }
 
     }
