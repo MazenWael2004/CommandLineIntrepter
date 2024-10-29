@@ -126,6 +126,7 @@ public void cleanup() throws IOException {
             .map(Path::toFile)
             //delete each file
             .forEach(File::delete);
+        Files.delete(tempDirectory);
     }
 
 }
