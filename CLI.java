@@ -1,7 +1,12 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
+import java.util.Scanner;
 
 public class CLI {
     public static void main(String[] args) throws Exception {
@@ -57,29 +62,76 @@ public class CLI {
     }
 
     }
-<<<<<<< HEAD
-  public static void mv(String sourcePath, String destPath) throws IOException {
 
-    Path source = Paths.get(sourcePath);
-    Path destination = Paths.get(destPath);
-    Files.move(source, destination, StandardCopyOption.REPLACE_EXISTING);
-  }
-  public static void rm(String filePath) throws IOException {
-    Path file = Paths.get(filePath);
-    Files.deleteIfExists(file);
-  }
 
-  public static void redirectOutput(String filePath, String content) throws IOException {
-    Path file = Paths.get(filePath);
-    Files.write(file, content.getBytes(StandardCharsets.UTF_8));
-  }
+  
 
-  public static void appendOutput(String filePath, String content) throws IOException {
-    Path file = Paths.get(filePath);
-    Files.write(file, content.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND, StandardOpenOption.CREATE);
-  }
+  public void mv ( Path source,Path destination){
+    
+    try {
+        Files.move(source,destination,StandardCopyOption.REPLACE_EXISTING);
+        System.out.println("from "+source+"to"+destination);
+        
+    } catch (IOException e) {
+        System.err.println("error");
+        e.printStackTrace();
+        
+    }
 
-=======
+  }
+  public void rm (Path file) {
+        try {
+            System.out.println("Deleting file: " + file);
+
+            System.out.println("are you sure you want to delete this file ? press y or Y to delete"+file);
+            Scanner input = new Scanner(System.in);
+            String answer =input.nextLine();
+            if(answer.equals("Y") || answer.equals("y")){
+                System.out.println("deleting file form directory "+file);
+                Files.deleteIfExists(file);
+
+            }
+            else{
+                System.out.println("cancel deleting");
+
+            }
+
+
+        }
+        catch (IOException e){
+            System.out.println("unable to delete file "+file);
+
+
+        }
+    }
+    public void outputRedirect(Path file, String content) {
+        try{
+           Files.write(file,content.getBytes(StandardCharsets.UTF_8));
+        }
+        catch (IOException e){
+            System.out.println("error output to the file");
+
+
+        }
+
+
+    }
+    public void appendRedirect(Path file,String content){
+        try{
+           Files.write(file,content.getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
+        }
+        catch (IOException e){
+            System.out.println("error append to the file");
+
+
+        }
+
+    }
+    
+
+  
+
+
     //constructor
     public CLI(){
         //must be initialized when opening CLI
@@ -96,56 +148,56 @@ public class CLI {
     //note to whoever is making main java \ is a break character
     //so input  "\\" is '\' so need to normalize \ input into \\ for
     //cd to work  
-    // public void cd(String newDirectory){
-    //     // create a file of current directory for navigation 
-    //     File currentNavDirectory = new File(currentDirectory);
-    //     // if in formate a-Z: or a-Z:\ or /  then absolute directory
-    //     if ( newDirectory.matches("^[a-zA-Z]:\\\\?$")||newDirectory.matches("^[a-zA-Z]:\\\\.*") || newDirectory.matches("^/.*")) {
-
-    //         currentNavDirectory = new File(newDirectory);
-    //         if(currentNavDirectory.exists() && currentNavDirectory.isDirectory()){
-    //             currentDirectory = newDirectory;
-    //         }
-    //         else{
-    //             System.err.println("this directory does not exist " + currentNavDirectory.getPath() );
-    //         }
-    //         return;
-    //     }
-    //     //relative directory has 3 cases, within current file or parent file or within parent file
-    //     else{
-
-    //         //breakdown newDirectory into parts based on / and \  java needs \\ as 
-    //         // \ is an escape character and since in regex'regular expression' needs another
-    //         // \\ at end so \\\\
-    //         //store each path component seperately within array
-    //         String [] pathComponents = newDirectory.split("[/\\\\]");
-    //         for(String component :pathComponents){
-    //             //navigate back to parent directory
-    //             if(component.equals("..")){
-    //                 //check if there is parent file ie not root file
-    //                 if(currentNavDirectory.getParentFile() != null){
-    //                     //updates navigationDirectory
-    //                     currentNavDirectory = currentNavDirectory.getParentFile();
-    //                 }
-    //                 // does nothing if already at root but continues loop
-    //             }
-    //             else{
-    //                 //add component to currentNavDirectory
-    //                 File checkDirectory = new File(currentNavDirectory , component);
-    //                 //check if new nav directory exists and is a directory(file) and not a program or something
-    //                 if(checkDirectory.exists() && checkDirectory.isDirectory()){
-    //                     currentNavDirectory = checkDirectory;
-    //                 }
-    //                 else{
-    //                     System.err.println("this directory does not exist " + checkDirectory.getPath() );
-    //                 }
-    //             }
-    //         }
-    //         currentDirectory = currentNavDirectory.getPath();
-    //         System.out.println("at new directory: " + currentDirectory);
-    //         return;  
-    //     }
-    // }
+//     public void cd(String newDirectory){
+//         // create a file of current directory for navigation
+//         File currentNavDirectory = new File(currentDirectory);
+//         // if in formate a-Z: or a-Z:\ or /  then absolute directory
+//         if ( newDirectory.matches("^[a-zA-Z]:\\\\?$")||newDirectory.matches("^[a-zA-Z]:\\\\.*") || newDirectory.matches("^/.*")) {
+//
+//             currentNavDirectory = new File(newDirectory);
+//             if(currentNavDirectory.exists() && currentNavDirectory.isDirectory()){
+//                 currentDirectory = newDirectory;
+//             }
+//             else{
+//                 System.err.println("this directory does not exist " + currentNavDirectory.getPath() );
+//             }
+//             return;
+//         }
+//         //relative directory has 3 cases, within current file or parent file or within parent file
+//         else{
+//
+//             //breakdown newDirectory into parts based on / and \  java needs \\ as
+//             // \ is an escape character and since in regex'regular expression' needs another
+//             // \\ at end so \\\\
+//             //store each path component seperately within array
+//             String [] pathComponents = newDirectory.split("[/\\\\]");
+//             for(String component :pathComponents){
+//                 //navigate back to parent directory
+//                 if(component.equals("..")){
+//                     //check if there is parent file ie not root file
+//                     if(currentNavDirectory.getParentFile() != null){
+//                         //updates navigationDirectory
+//                         currentNavDirectory = currentNavDirectory.getParentFile();
+//                     }
+//                     // does nothing if already at root but continues loop
+//                 }
+//                 else{
+//                     //add component to currentNavDirectory
+//                     File checkDirectory = new File(currentNavDirectory , component);
+//                     //check if new nav directory exists and is a directory(file) and not a program or something
+//                     if(checkDirectory.exists() && checkDirectory.isDirectory()){
+//                         currentNavDirectory = checkDirectory;
+//                     }
+//                     else{
+//                         System.err.println("this directory does not exist " + checkDirectory.getPath() );
+//                     }
+//                 }
+//             }
+//             currentDirectory = currentNavDirectory.getPath();
+//             System.out.println("at new directory: " + currentDirectory);
+//             return;
+//         }
+//     }
     //cd again simple
     public void cd(String path){
         File newDir;
@@ -222,5 +274,5 @@ public class CLI {
             System.err.println("Directory does not exist:" + dirToRemovePath);
         }
     }
->>>>>>> 78678aeebc267bf423720aea1db7d40a057a403b
+
 }
