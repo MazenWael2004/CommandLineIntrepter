@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class CLI {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
         // sytnax is className object name = new constructor();
         CLI cli = new CLI();
         //check number of arguments greater than 0
